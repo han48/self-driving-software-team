@@ -60,7 +60,7 @@ This framework transforms software project management from:
 1. Read [`en/quick-start.md`](en/quick-start.md) (15 minutes)
 2. Set up your toolchain: [`en/toolchain.md`](en/toolchain.md)
 3. Use prompt templates: [`en/prompt-templates.md`](en/prompt-templates.md)
-4. For full details, read the main document: [`vi/self-driving-software-team.md`](vi/self-driving-software-team.md)
+4. For full details, read the main document: [`en/self-driving-software-team.md`](en/self-driving-software-team.md)
 
 ---
 
