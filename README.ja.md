@@ -60,7 +60,7 @@ AI-firstデリバリーモデルへの移行を目指すソフトウェアチー
 1. [`ja/quick-start.md`](ja/quick-start.md) を読む（15分）
 2. ツールチェーンをセットアップ：[`ja/toolchain.md`](ja/toolchain.md)
 3. プロンプトテンプレートを使用：[`ja/prompt-templates.md`](ja/prompt-templates.md)
-4. 完全な詳細はメインドキュメント参照：[`vi/self-driving-software-team.md`](vi/self-driving-software-team.md)
+4. 完全な詳細はメインドキュメント参照：[`ja/self-driving-software-team.md`](ja/self-driving-software-team.md)
 
 ---
 
