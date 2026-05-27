@@ -1,6 +1,6 @@
-# Prompt Templates – AI Prompts for Each Phase
+# Prompt Templates – AI Prompt Templates for Each Phase
 
-> Use these templates when you need AI to generate output in the correct process format.
+> Use the templates below when you need AI to generate output in the correct process format.
 > Replace `{...}` with your actual content.
 
 ---
@@ -23,7 +23,7 @@ Requirements:
 - If ambiguity detected → create QA-XXX
 - If risk detected → create RISK-XXX
 
-Output format: per structure in Appendix A.2
+Output format: follow structure in Appendix A.2
 File location: openspec/specs/{feature-name}/requirements.md
 ```
 
@@ -67,15 +67,15 @@ generate design.md including:
 10. Testing Strategy
 
 Requirements:
-- Each component must reference corresponding requirement
-- GUI prototype must open directly in browser
+- Each component must reference the corresponding requirement
+- GUI prototype must be directly openable in browser
 - Database design must include index strategy
 - Correctness Properties in "For any..." format
 
-Output format: per structure in Appendix A.3
+Output format: follow structure in Appendix A.3
 ```
 
-### Prompt for Small Features (skip sections)
+### Prompt for small features (skip sections)
 
 ```
 Feature size: Small (< 1 day)
@@ -85,7 +85,7 @@ Only generate design.md with sections:
 - Testing Strategy
 
 Skip: Site Map, GUI, Architecture, Database, Infrastructure
-(Feature too small for full design)
+(Feature too small, full design not needed)
 ```
 
 ---
@@ -106,7 +106,7 @@ Requirements:
 - Include tasks for: code, unit test, integration test, E2E test
 - Logical order: setup → core logic → tests → integration
 
-Output format: per structure in Appendix A.4
+Output format: follow structure in Appendix A.4
 ```
 
 ---
@@ -131,7 +131,7 @@ Format:
 - I: Context affecting progress (or "—")
 - O: Results achieved + numbers
 
-If serious D items → check if RISK-XXX/ISSUE-XXX exists, create if not.
+If there are serious D items → check if RISK-XXX/ISSUE-XXX exists, create if not.
 ```
 
 ---
@@ -152,10 +152,10 @@ Generate bugfix.md with:
 3. Unchanged Behavior (Regression Prevention) – EARS format
 
 Then generate design.md with:
-- 5WHY root cause analysis (dig to actual root cause)
+- 5WHY root cause analysis (dig to the real root cause)
 - Fix Implementation (surgical, minimal changes)
 - Files Changed (clear table)
-- Prevention (what to do so this bug type doesn't recur)
+- Prevention (what to do so this type of bug doesn't recur)
 - Correctness Properties
 
 Output: openspec/bugs/{bug-name}/bugfix.md + design.md + tasks.md
@@ -179,14 +179,14 @@ Please:
 3. Assess risk if implemented
 4. Suggest priority (High/Medium/Low) with reasoning
 5. Check for conflicts with existing specs/design
-6. Add to backlog.md "Pending" section in correct format
+6. Record in backlog.md section "Pending" in correct format
 ```
 
 ---
 
 ## 7. Detect Risk & Issue
 
-### Risk Detection Prompt
+### Prompt for Risk Detection
 
 ```
 Review {file: spec/design/code} and detect risks:
@@ -202,23 +202,23 @@ For each risk detected:
 - Assess Probability (H/M/L) + Impact (H/M/L)
 - Write Prevention (what to do to avoid)
 - Write Mitigation (what to do if it occurs)
-- Identify Trigger (early warning signs)
+- Identify Trigger (warning signs)
 
-Output: add to openspec/risk-issue/risks.md in RISK-XXX format
+Output: append to openspec/risk-issue/risks.md in RISK-XXX format
 ```
 
 ---
 
 ## 8. Generate Q&A
 
-### Prompt When Ambiguity Detected
+### Prompt when ambiguity detected
 
 ```
 While reading spec/design, I found an ambiguous point:
 "{description of ambiguity}"
 
 Please:
-1. Create QA-XXX with clear question and context
+1. Create QA-XXX with a clear question including context
 2. List possible options (if known)
 3. Suggest default answer (if inferable)
 4. Identify who needs to answer (Client / Architect / Lead)
@@ -232,7 +232,7 @@ Output: openspec/qa/QA-XXX/thread.md + update index.md
 ## Tips for Using Prompts
 
 1. **More context is better:** Attach related files, don't just describe
-2. **Reference existing specs:** If related specs exist, mention them
+2. **Reference existing specs:** If there are related specs, mention them
 3. **Specify constraints:** Deadline, tech stack, team size affect output
 4. **Iterative:** If output isn't right → give specific feedback, don't re-prompt from scratch
 5. **Verify format:** After AI generates → check format matches Appendix A/B

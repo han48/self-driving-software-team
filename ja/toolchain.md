@@ -1,31 +1,31 @@
 # ツールチェーン＆ツール
 
-AI-First、Spec-Drivenモデルの推奨ツール一覧。
+AI-First、Spec-Drivenモデル向けの推奨ツール一覧。
 
 ---
 
 ## AIエージェントレイヤー
 
 | コンポーネント | 推奨ツール | 代替 |
-|------------|----------|------|
-| AI IDE | **Kiro** (AWS) | Cursor, Windsurf |
-| LLMバックエンド | Claude (Anthropic) | GPT-4o, Gemini |
-| Spec管理 | **OpenSpec**（Git内ファイルベース） | カスタムmarkdown |
-| MCP連携 | Kiro MCPサーバー | カスタムMCP |
+|--------------|-----------|------|
+| AI IDE | **Kiro**（AWS） | Cursor、Windsurf |
+| LLMバックエンド | Claude（Anthropic） | GPT-4o、Gemini |
+| スペック管理 | **OpenSpec**（Gitリポジトリ内のファイルベース） | カスタムmarkdown |
+| MCP統合 | Kiro MCPサーバー | カスタムMCP |
 
 ---
 
 ## CI/CD＆テスト
 
 | コンポーネント | 推奨ツール | 代替 |
-|------------|----------|------|
-| CI/CD | GitHub Actions | GitLab CI, Jenkins, Azure DevOps |
-| ユニットテスト | Jest / PHPUnit / pytest | Vitest, Mocha |
-| E2Eテスト | Playwright | Selenium, Cypress |
+|--------------|-----------|------|
+| CI/CD | GitHub Actions | GitLab CI、Jenkins、Azure DevOps |
+| ユニットテスト | Jest / PHPUnit / pytest | Vitest、Mocha |
+| E2Eテスト | Playwright | Selenium、Cypress |
 | デスクトップテスト | RobotFramework | AutoIt |
 | ブラウザ自動化 | browser-use | Puppeteer |
-| SAST/セキュリティ | SonarQube + Snyk | CodeQL, Semgrep |
-| カバレッジ | Istanbul / Coverage.py | 組み込みフレームワーク |
+| SAST/セキュリティ | SonarQube + Snyk | CodeQL、Semgrep |
+| カバレッジ | Istanbul / Coverage.py | ビルトインフレームワーク |
 | プロパティベーステスト | fast-check / Hypothesis | — |
 
 ---
@@ -33,10 +33,10 @@ AI-First、Spec-Drivenモデルの推奨ツール一覧。
 ## コミュニケーション＆モニタリング
 
 | コンポーネント | 推奨ツール | 代替 |
-|------------|----------|------|
-| 通知 | Slack / MS Teams | Discord, Email |
-| ダッシュボード | Grafana + カスタム | Datadog, New Relic |
-| Gitホスティング | GitHub | GitLab, Bitbucket |
+|--------------|-----------|------|
+| 通知 | Slack / MS Teams | Discord、Email |
+| ダッシュボード | Grafana + カスタム | Datadog、New Relic |
+| Gitホスティング | GitHub | GitLab、Bitbucket |
 | PRレビュー | GitHub PR | GitLab MR |
 
 ---
@@ -44,7 +44,7 @@ AI-First、Spec-Drivenモデルの推奨ツール一覧。
 ## AIをCI/CDパイプラインに統合
 
 ```yaml
-# GitHub Actionsワークフロー例
+# GitHub Actionsワークフローの例
 name: AI-First Pipeline
 on: [push, pull_request]
 
@@ -53,16 +53,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: AI Specコンプライアンスチェック
+      - name: AIスペック準拠チェックを実行
         run: |
-          # AIがコードをSpecに対して検証
+          # AIがコードをスペックに対してバリデーション
           npm run ai:validate-spec
-      - name: 全テストレベル実行 (L1-L4)
+      - name: 全テストレベルを実行（L1-L4）
         run: |
           npm run test:unit          # L1
           npm run test:integration   # L2
           npm run test:e2e           # L3
-      - name: セキュリティスキャン (SAST)
+      - name: セキュリティスキャン（SAST）
         run: npm run security:scan
       - name: RADIOレポート生成
         run: npm run ai:radio-report
@@ -72,21 +72,21 @@ jobs:
 
 ## ツール選定ルール
 
-1. **ファイルベース優先：** ファイル出力ツール（Git対応）> API必要ツール
-2. **AI読み取り可能：** AI読み取り可能フォーマット出力必須（JSON, Markdown, YAML）
-3. **CI互換：** CI/CDパイプラインで実行可能（ヘッドレス）
-4. **チーム習熟：** チームが既知のツール優先 > より良いが未知のツール
-5. **コスト効率：** オープンソース優先、スケール時に有料ツール
+1. **ファイルベースを優先：** ファイル出力するツール（Git対応）> APIが必要なツール
+2. **AI読み取り可能：** ツールはAIが読めるフォーマットで出力すること（JSON、Markdown、YAML）
+3. **CI互換：** CI/CDパイプラインで実行可能であること（ヘッドレス）
+4. **チームに馴染みがある：** チームが既に知っているツールを優先 > より良いが新しいツール
+5. **コスト効率：** オープンソースを優先、スケールが必要な場合に有料ツール
 
 ---
 
 ## ツール → プロセスマッピング
 
 | フェーズ | 主要ツール | 出力 |
-|---------|----------|------|
-| Spec生成 | Kiro + Claude | `requirements.md` |
-| Design生成 | Kiro + Claude | `design.md` + `gui/*.html` |
-| Tasks生成 | Kiro + Claude | `tasks.md` |
+|---------|-----------|------|
+| スペック生成 | Kiro + Claude | `requirements.md` |
+| 設計生成 | Kiro + Claude | `design.md` + `gui/*.html` |
+| タスク生成 | Kiro + Claude | `tasks.md` |
 | コード生成 | Kiro + Claude | ソースコード |
 | テスト生成 | Kiro + Claude + Jest/Playwright | テストファイル |
 | テスト実行 | GitHub Actions + Jest/Playwright | CIレポート |

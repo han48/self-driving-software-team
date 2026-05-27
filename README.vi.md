@@ -30,27 +30,31 @@ Framework này chuyển đổi quản lý dự án phần mềm từ:
 ## Cấu trúc tài liệu
 
 ```
-📁 project-processing/
+📁 self-driving-software-team/
 ├── README.md                    ← README tiếng Anh
 ├── README.vi.md                 ← Bạn đang ở đây (Tiếng Việt)
 ├── README.ja.md                 ← README tiếng Nhật
-├── 📁 vi/                       ← Tiếng Việt (bản gốc, đầy đủ)
+├── 📁 vi/                       ← Tiếng Việt (bản gốc)
 │   ├── self-driving-software-team.md   ← Tài liệu chính (2800+ dòng)
 │   ├── quick-start.md
 │   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 en/                       ← Tiếng Anh (tóm tắt + bổ sung)
-│   ├── self-driving-software-team.md   ← Bản dịch tóm tắt
+│   ├── prompt-templates.md
+│   ├── 📁 steerings/           ← AI steering files (19 files)
+│   └── 📁 skills/              ← AI skill files (7 files)
+├── 📁 en/                       ← Tiếng Anh (bản dịch đầy đủ)
+│   ├── self-driving-software-team.md
 │   ├── quick-start.md
 │   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 ja/                       ← Tiếng Nhật (tóm tắt + bổ sung)
-│   ├── self-driving-software-team.md   ← サマリー翻訳
-│   ├── quick-start.md
-│   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 steerings/                ← AI steering files (19 files)
-└── 📁 skills/                   ← AI skill files (7 files)
+│   ├── prompt-templates.md
+│   ├── 📁 steerings/           ← AI steering files (19 files)
+│   └── 📁 skills/              ← AI skill files (7 files)
+└── 📁 ja/                       ← Tiếng Nhật (bản dịch đầy đủ)
+    ├── self-driving-software-team.md
+    ├── quick-start.md
+    ├── toolchain.md
+    ├── prompt-templates.md
+    ├── 📁 steerings/           ← AI steering files (19 files)
+    └── 📁 skills/              ← AI skill files (7 files)
 ```
 
 ---

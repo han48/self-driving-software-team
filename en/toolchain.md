@@ -44,7 +44,7 @@ Recommended tools for the AI-First, Spec-Driven model.
 ## Integrating AI into CI/CD Pipeline
 
 ```yaml
-# GitHub Actions workflow example
+# Example GitHub Actions workflow
 name: AI-First Pipeline
 on: [push, pull_request]
 
@@ -55,7 +55,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run AI spec compliance check
         run: |
-          # AI validates code against spec
+          # AI validate code against spec
           npm run ai:validate-spec
       - name: Run all test levels (L1-L4)
         run: |
@@ -72,11 +72,11 @@ jobs:
 
 ## Tool Selection Rules
 
-1. **Prefer file-based:** Tools that output files (Git-friendly) > tools requiring APIs
-2. **AI-readable:** Tools must output AI-readable formats (JSON, Markdown, YAML)
+1. **Prefer file-based:** Tools that output files (Git-friendly) > tools requiring API
+2. **AI-readable:** Tools must output in AI-readable format (JSON, Markdown, YAML)
 3. **CI-compatible:** Must run in CI/CD pipeline (headless)
-4. **Team familiar:** Prefer tools the team already knows > better but unfamiliar tools
-5. **Cost-effective:** Open source first, paid tools when scaling requires it
+4. **Team familiar:** Prefer tools the team already knows > better but new tools
+5. **Cost-effective:** Open source first, paid tools when scaling is needed
 
 ---
 

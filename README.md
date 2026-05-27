@@ -30,27 +30,31 @@ This framework transforms software project management from:
 ## Document Structure
 
 ```
-📁 project-processing/
+📁 self-driving-software-team/
 ├── README.md                    ← You are here (English)
 ├── README.vi.md                 ← Vietnamese README
 ├── README.ja.md                 ← Japanese README
-├── 📁 vi/                       ← Vietnamese (original, complete)
+├── 📁 vi/                       ← Vietnamese (original)
 │   ├── self-driving-software-team.md   ← Main document (2800+ lines)
 │   ├── quick-start.md
 │   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 en/                       ← English (summary + supplements)
-│   ├── self-driving-software-team.md   ← Summary translation
+│   ├── prompt-templates.md
+│   ├── 📁 steerings/           ← AI steering files (19 files)
+│   └── 📁 skills/              ← AI skill files (7 files)
+├── 📁 en/                       ← English (full translation)
+│   ├── self-driving-software-team.md
 │   ├── quick-start.md
 │   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 ja/                       ← Japanese (summary + supplements)
-│   ├── self-driving-software-team.md   ← サマリー翻訳
-│   ├── quick-start.md
-│   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 steerings/                ← AI steering files (19 files)
-└── 📁 skills/                   ← AI skill files (7 files)
+│   ├── prompt-templates.md
+│   ├── 📁 steerings/           ← AI steering files (19 files)
+│   └── 📁 skills/              ← AI skill files (7 files)
+└── 📁 ja/                       ← Japanese (full translation)
+    ├── self-driving-software-team.md
+    ├── quick-start.md
+    ├── toolchain.md
+    ├── prompt-templates.md
+    ├── 📁 steerings/           ← AI steering files (19 files)
+    └── 📁 skills/              ← AI skill files (7 files)
 ```
 
 ---

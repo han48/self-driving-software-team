@@ -30,27 +30,31 @@ AI-firstデリバリーモデルへの移行を目指すソフトウェアチー
 ## ドキュメント構造
 
 ```
-📁 project-processing/
+📁 self-driving-software-team/
 ├── README.md                    ← 英語README
 ├── README.vi.md                 ← ベトナム語README
 ├── README.ja.md                 ← ここ（日本語）
-├── 📁 vi/                       ← ベトナム語（原本、完全版）
+├── 📁 vi/                       ← ベトナム語（原本）
 │   ├── self-driving-software-team.md   ← メインドキュメント（2800行以上）
 │   ├── quick-start.md
 │   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 en/                       ← 英語（サマリー＋補足）
-│   ├── self-driving-software-team.md   ← サマリー翻訳
+│   ├── prompt-templates.md
+│   ├── 📁 steerings/           ← AIステアリングファイル（19ファイル）
+│   └── 📁 skills/              ← AIスキルファイル（7ファイル）
+├── 📁 en/                       ← 英語（完全翻訳）
+│   ├── self-driving-software-team.md
 │   ├── quick-start.md
 │   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 ja/                       ← 日本語（サマリー＋補足）
-│   ├── self-driving-software-team.md   ← サマリー翻訳
-│   ├── quick-start.md
-│   ├── toolchain.md
-│   └── prompt-templates.md
-├── 📁 steerings/                ← AIステアリングファイル（19ファイル）
-└── 📁 skills/                   ← AIスキルファイル（7ファイル）
+│   ├── prompt-templates.md
+│   ├── 📁 steerings/           ← AIステアリングファイル（19ファイル）
+│   └── 📁 skills/              ← AIスキルファイル（7ファイル）
+└── 📁 ja/                       ← 日本語（完全翻訳）
+    ├── self-driving-software-team.md
+    ├── quick-start.md
+    ├── toolchain.md
+    ├── prompt-templates.md
+    ├── 📁 steerings/           ← AIステアリングファイル（19ファイル）
+    └── 📁 skills/              ← AIスキルファイル（7ファイル）
 ```
 
 ---
