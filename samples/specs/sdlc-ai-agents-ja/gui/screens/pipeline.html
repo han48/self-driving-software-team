@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI Agents - パイプライン</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width); background: #1e293b; color: #fff; z-index: 1040; overflow-y: auto; }
+        .sidebar .brand { padding: 16px 20px; font-size: 1.1rem; font-weight: 700; border-bottom: 1px solid #334155; }
+        .sidebar .nav-link { color: #cbd5e1; padding: 10px 20px; font-size: .875rem; display: flex; align-items: center; gap: 10px; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: #334155; }
+        .sidebar .nav-link i { font-size: 1.1rem; width: 22px; text-align: center; }
+        .sidebar .nav-section { padding: 12px 20px 4px; font-size: .7rem; text-transform: uppercase; color: #64748b; letter-spacing: .5px; }
+        .main-content { margin-left: var(--sidebar-width); padding: 20px 28px; min-height: 100vh; }
+        .top-bar { height: 56px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; padding: 0 24px; margin: -20px -28px 20px; }
+        .pipeline-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); margin-bottom: 16px; }
+        .pipeline-flow { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+        .pipeline-node { padding: 6px 12px; border-radius: 6px; font-size: .75rem; font-weight: 500; white-space: nowrap; }
+        .pipeline-node.completed { background: #dcfce7; color: #166534; }
+        .pipeline-node.running { background: #fef3c7; color: #92400e; }
+        .pipeline-node.pending { background: #f1f5f9; color: #64748b; }
+        .pipeline-node.failed { background: #fee2e2; color: #991b1b; }
+        .pipeline-arrow { color: #94a3b8; font-size: .7rem; }
+        .review-gate { border: 2px dashed #3b82f6; padding: 4px 8px; border-radius: 6px; font-size: .7rem; color: #3b82f6; }
+        @media(max-width:991px){ .sidebar{display:none} .main-content{margin-left:0} }
+    </style>
+</head>
+<body>
+
+<nav class="sidebar">
+    <div class="brand"><i class="bi bi-cpu"></i> SDLC AI Agents</div>
+    <div class="nav-section">メイン</div>
+    <a class="nav-link" href="../index.html"><i class="bi bi-grid-1x2"></i> ダッシュボード</a>
+    <a class="nav-link active" href="pipeline.html"><i class="bi bi-diagram-3"></i> パイプライン</a>
+    <a class="nav-link" href="agents.html"><i class="bi bi-robot"></i> エージェント</a>
+    <a class="nav-link" href="artifacts.html"><i class="bi bi-archive"></i> アーティファクト</a>
+    <div class="nav-section">SDLCワークフロー</div>
+    <a class="nav-link" href="requirements.html"><i class="bi bi-file-earmark-text"></i> 要件定義</a>
+    <a class="nav-link" href="design.html"><i class="bi bi-palette"></i> 設計</a>
+    <a class="nav-link" href="tasks.html"><i class="bi bi-kanban"></i> タスク</a>
+    <a class="nav-link" href="testing.html"><i class="bi bi-bug"></i> テスト</a>
+    <a class="nav-link" href="deployment.html"><i class="bi bi-rocket-takeoff"></i> デプロイ</a>
+    <div class="nav-section">インテリジェンス</div>
+    <a class="nav-link" href="knowledge.html"><i class="bi bi-book"></i> ナレッジストア</a>
+    <a class="nav-link" href="project-health.html"><i class="bi bi-heart-pulse"></i> プロジェクトヘルス</a>
+    <a class="nav-link" href="sentiment.html"><i class="bi bi-emoji-smile"></i> センチメント</a>
+    <div class="nav-section">管理</div>
+    <a class="nav-link" href="admin.html"><i class="bi bi-gear"></i> 管理ポータル</a>
+    <a class="nav-link" href="users.html"><i class="bi bi-people"></i> ユーザーと権限</a>
+    <a class="nav-link" href="feedback.html"><i class="bi bi-star"></i> フィードバック</a>
+</nav>
+
+<div class="main-content">
+    <div class="top-bar">
+        <h5 class="mb-0 me-auto">パイプライン</h5>
+        <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> 新規パイプライン</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="d-flex gap-2 mb-3 flex-wrap">
+        <select class="form-select form-select-sm" style="width:auto">
+            <option>すべてのステータス</option>
+            <option>実行中</option>
+            <option>完了</option>
+            <option>失敗</option>
+        </select>
+        <select class="form-select form-select-sm" style="width:auto">
+            <option>すべてのモード</option>
+            <option selected>Spec Mode</option>
+            <option>Fix Mode</option>
+            <option>Vibe Mode</option>
+        </select>
+        <select class="form-select form-select-sm" style="width:auto">
+            <option>すべてのプロジェクト</option>
+            <option>E-Commerce Platform</option>
+            <option>Mobile Banking App</option>
+        </select>
+    </div>
+
+    <!-- Pipeline 1 -->
+    <div class="pipeline-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h6 class="mb-1">ユーザー認証機能</h6>
+                <div class="small text-muted">パイプラインID: PL-2024-001 • モード: Spec • 開始: 2024-08-05 09:00</div>
+            </div>
+            <span class="badge bg-warning text-dark">実行中</span>
+        </div>
+        <div class="pipeline-flow mb-3">
+            <div class="pipeline-node completed">要件定義</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="review-gate">✓ 承認済み</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">設計</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="review-gate">✓ 承認済み</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">UIUX</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">タスク</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node running">コーディング</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">テスト</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">デプロイ</div>
+        </div>
+        <div class="d-flex gap-3 small text-muted">
+            <span><i class="bi bi-clock"></i> 経過時間: 4h 23m</span>
+            <span><i class="bi bi-coin"></i> トークン: 124,500</span>
+            <span><i class="bi bi-person"></i> オーナー: Nguyen Van A</span>
+        </div>
+    </div>
+
+    <!-- Pipeline 2 -->
+    <div class="pipeline-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h6 class="mb-1">決済ゲートウェイ統合</h6>
+                <div class="small text-muted">パイプラインID: PL-2024-002 • モード: Spec • 開始: 2024-08-04 14:30</div>
+            </div>
+            <span class="badge bg-info">レビュー待ち</span>
+        </div>
+        <div class="pipeline-flow mb-3">
+            <div class="pipeline-node completed">要件定義</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="review-gate">✓ 承認済み</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">設計</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="review-gate" style="border-color:#f59e0b;color:#f59e0b">⏳ 待機中</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">タスク</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">コーディング</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">テスト</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">デプロイ</div>
+        </div>
+        <div class="d-flex gap-3 small text-muted">
+            <span><i class="bi bi-clock"></i> 経過時間: 28h 15m</span>
+            <span><i class="bi bi-coin"></i> トークン: 67,200</span>
+            <span><i class="bi bi-person"></i> オーナー: Tran Thi B</span>
+        </div>
+    </div>
+
+    <!-- Pipeline 3 -->
+    <div class="pipeline-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h6 class="mb-1">修正: ログインタイムアウトバグ</h6>
+                <div class="small text-muted">パイプラインID: PL-2024-003 • モード: Fix • 開始: 2024-08-05 10:15</div>
+            </div>
+            <span class="badge bg-success">完了</span>
+        </div>
+        <div class="pipeline-flow mb-3">
+            <div class="pipeline-node completed">5WHY分析</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">バグ修正ドキュメント</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">コード修正</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">回帰テスト</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">デプロイ</div>
+        </div>
+        <div class="d-flex gap-3 small text-muted">
+            <span><i class="bi bi-clock"></i> 合計: 1h 42m</span>
+            <span><i class="bi bi-coin"></i> トークン: 34,100</span>
+            <span><i class="bi bi-person"></i> オーナー: Le Van C</span>
+        </div>
+    </div>
+
+    <!-- Pipeline 4 -->
+    <div class="pipeline-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h6 class="mb-1">通知サービスプロトタイプ</h6>
+                <div class="small text-muted">パイプラインID: PL-2024-004 • モード: Vibe • 開始: 2024-08-05 11:00</div>
+            </div>
+            <span class="badge bg-danger">失敗</span>
+        </div>
+        <div class="pipeline-flow mb-3">
+            <div class="pipeline-node completed">コード生成</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node failed">テスト（3件失敗）</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">デプロイ</div>
+        </div>
+        <div class="d-flex gap-3 small text-muted">
+            <span><i class="bi bi-clock"></i> 経過時間: 45m</span>
+            <span><i class="bi bi-coin"></i> トークン: 22,800</span>
+            <span><i class="bi bi-exclamation-triangle text-danger"></i> リトライ 2/3</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

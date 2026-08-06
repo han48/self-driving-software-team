@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI Agents - Pipelines</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width); background: #1e293b; color: #fff; z-index: 1040; overflow-y: auto; }
+        .sidebar .brand { padding: 16px 20px; font-size: 1.1rem; font-weight: 700; border-bottom: 1px solid #334155; }
+        .sidebar .nav-link { color: #cbd5e1; padding: 10px 20px; font-size: .875rem; display: flex; align-items: center; gap: 10px; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: #334155; }
+        .sidebar .nav-link i { font-size: 1.1rem; width: 22px; text-align: center; }
+        .sidebar .nav-section { padding: 12px 20px 4px; font-size: .7rem; text-transform: uppercase; color: #64748b; letter-spacing: .5px; }
+        .main-content { margin-left: var(--sidebar-width); padding: 20px 28px; min-height: 100vh; }
+        .top-bar { height: 56px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; padding: 0 24px; margin: -20px -28px 20px; }
+        .pipeline-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); margin-bottom: 16px; }
+        .pipeline-flow { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+        .pipeline-node { padding: 6px 12px; border-radius: 6px; font-size: .75rem; font-weight: 500; white-space: nowrap; }
+        .pipeline-node.completed { background: #dcfce7; color: #166534; }
+        .pipeline-node.running { background: #fef3c7; color: #92400e; }
+        .pipeline-node.pending { background: #f1f5f9; color: #64748b; }
+        .pipeline-node.failed { background: #fee2e2; color: #991b1b; }
+        .pipeline-arrow { color: #94a3b8; font-size: .7rem; }
+        .review-gate { border: 2px dashed #3b82f6; padding: 4px 8px; border-radius: 6px; font-size: .7rem; color: #3b82f6; }
+        @media(max-width:991px){ .sidebar{display:none} .main-content{margin-left:0} }
+    </style>
+</head>
+<body>
+
+<nav class="sidebar">
+    <div class="brand"><i class="bi bi-cpu"></i> SDLC AI Agents</div>
+    <div class="nav-section">Main</div>
+    <a class="nav-link" href="../index.html"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+    <a class="nav-link active" href="pipeline.html"><i class="bi bi-diagram-3"></i> Pipelines</a>
+    <a class="nav-link" href="agents.html"><i class="bi bi-robot"></i> Agents</a>
+    <a class="nav-link" href="artifacts.html"><i class="bi bi-archive"></i> Artifacts</a>
+    <div class="nav-section">SDLC Workflow</div>
+    <a class="nav-link" href="requirements.html"><i class="bi bi-file-earmark-text"></i> Requirements</a>
+    <a class="nav-link" href="design.html"><i class="bi bi-palette"></i> Design</a>
+    <a class="nav-link" href="tasks.html"><i class="bi bi-kanban"></i> Tasks</a>
+    <a class="nav-link" href="testing.html"><i class="bi bi-bug"></i> Testing</a>
+    <a class="nav-link" href="deployment.html"><i class="bi bi-rocket-takeoff"></i> Deployment</a>
+    <div class="nav-section">Intelligence</div>
+    <a class="nav-link" href="knowledge.html"><i class="bi bi-book"></i> Knowledge Store</a>
+    <a class="nav-link" href="project-health.html"><i class="bi bi-heart-pulse"></i> Project Health</a>
+    <a class="nav-link" href="sentiment.html"><i class="bi bi-emoji-smile"></i> Sentiment</a>
+    <div class="nav-section">Administration</div>
+    <a class="nav-link" href="admin.html"><i class="bi bi-gear"></i> Admin Portal</a>
+    <a class="nav-link" href="users.html"><i class="bi bi-people"></i> Users & Roles</a>
+    <a class="nav-link" href="feedback.html"><i class="bi bi-star"></i> Feedback</a>
+</nav>
+
+<div class="main-content">
+    <div class="top-bar">
+        <h5 class="mb-0 me-auto">Pipelines</h5>
+        <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> New Pipeline</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="d-flex gap-2 mb-3 flex-wrap">
+        <select class="form-select form-select-sm" style="width:auto">
+            <option>All Status</option>
+            <option>Running</option>
+            <option>Completed</option>
+            <option>Failed</option>
+        </select>
+        <select class="form-select form-select-sm" style="width:auto">
+            <option>All Modes</option>
+            <option selected>Spec Mode</option>
+            <option>Fix Mode</option>
+            <option>Vibe Mode</option>
+        </select>
+        <select class="form-select form-select-sm" style="width:auto">
+            <option>All Projects</option>
+            <option>E-Commerce Platform</option>
+            <option>Mobile Banking App</option>
+        </select>
+    </div>
+
+    <!-- Pipeline 1 -->
+    <div class="pipeline-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h6 class="mb-1">User Authentication Feature</h6>
+                <div class="small text-muted">Pipeline ID: PL-2024-001 • Mode: Spec • Started: 2024-08-05 09:00</div>
+            </div>
+            <span class="badge bg-warning text-dark">Running</span>
+        </div>
+        <div class="pipeline-flow mb-3">
+            <div class="pipeline-node completed">Requirements</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="review-gate">✓ Approved</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">Design</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="review-gate">✓ Approved</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">UIUX</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">Tasks</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node running">Coding</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">Testing</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">Deploy</div>
+        </div>
+        <div class="d-flex gap-3 small text-muted">
+            <span><i class="bi bi-clock"></i> Elapsed: 4h 23m</span>
+            <span><i class="bi bi-coin"></i> Tokens: 124,500</span>
+            <span><i class="bi bi-person"></i> Owner: Nguyen Van A</span>
+        </div>
+    </div>
+
+    <!-- Pipeline 2 -->
+    <div class="pipeline-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h6 class="mb-1">Payment Gateway Integration</h6>
+                <div class="small text-muted">Pipeline ID: PL-2024-002 • Mode: Spec • Started: 2024-08-04 14:30</div>
+            </div>
+            <span class="badge bg-info">Review Pending</span>
+        </div>
+        <div class="pipeline-flow mb-3">
+            <div class="pipeline-node completed">Requirements</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="review-gate">✓ Approved</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">Design</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="review-gate" style="border-color:#f59e0b;color:#f59e0b">⏳ Waiting</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">Tasks</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">Coding</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">Testing</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">Deploy</div>
+        </div>
+        <div class="d-flex gap-3 small text-muted">
+            <span><i class="bi bi-clock"></i> Elapsed: 28h 15m</span>
+            <span><i class="bi bi-coin"></i> Tokens: 67,200</span>
+            <span><i class="bi bi-person"></i> Owner: Tran Thi B</span>
+        </div>
+    </div>
+
+    <!-- Pipeline 3 -->
+    <div class="pipeline-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h6 class="mb-1">Fix: Login Timeout Bug</h6>
+                <div class="small text-muted">Pipeline ID: PL-2024-003 • Mode: Fix • Started: 2024-08-05 10:15</div>
+            </div>
+            <span class="badge bg-success">Completed</span>
+        </div>
+        <div class="pipeline-flow mb-3">
+            <div class="pipeline-node completed">5WHY Analysis</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">Bugfix Doc</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">Fix Code</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">Regression Test</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node completed">Deploy</div>
+        </div>
+        <div class="d-flex gap-3 small text-muted">
+            <span><i class="bi bi-clock"></i> Total: 1h 42m</span>
+            <span><i class="bi bi-coin"></i> Tokens: 34,100</span>
+            <span><i class="bi bi-person"></i> Owner: Le Van C</span>
+        </div>
+    </div>
+
+    <!-- Pipeline 4 -->
+    <div class="pipeline-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h6 class="mb-1">Notification Service Prototype</h6>
+                <div class="small text-muted">Pipeline ID: PL-2024-004 • Mode: Vibe • Started: 2024-08-05 11:00</div>
+            </div>
+            <span class="badge bg-danger">Failed</span>
+        </div>
+        <div class="pipeline-flow mb-3">
+            <div class="pipeline-node completed">Code Gen</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node failed">Testing (3 fails)</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-node pending">Deploy</div>
+        </div>
+        <div class="d-flex gap-3 small text-muted">
+            <span><i class="bi bi-clock"></i> Elapsed: 45m</span>
+            <span><i class="bi bi-coin"></i> Tokens: 22,800</span>
+            <span><i class="bi bi-exclamation-triangle text-danger"></i> Retry 2/3</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI Agents - System Design</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width); background: #1e293b; color: #fff; z-index: 1040; overflow-y: auto; }
+        .sidebar .brand { padding: 16px 20px; font-size: 1.1rem; font-weight: 700; border-bottom: 1px solid #334155; }
+        .sidebar .nav-link { color: #cbd5e1; padding: 10px 20px; font-size: .875rem; display: flex; align-items: center; gap: 10px; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: #334155; }
+        .sidebar .nav-link i { font-size: 1.1rem; width: 22px; text-align: center; }
+        .sidebar .nav-section { padding: 12px 20px 4px; font-size: .7rem; text-transform: uppercase; color: #64748b; letter-spacing: .5px; }
+        .main-content { margin-left: var(--sidebar-width); padding: 20px 28px; min-height: 100vh; }
+        .top-bar { height: 56px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; padding: 0 24px; margin: -20px -28px 20px; }
+        .card-panel { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+        .arch-component { border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 10px; }
+        .arch-component.api { border-color: #3b82f6; background: #eff6ff; }
+        .arch-component.service { border-color: #22c55e; background: #f0fdf4; }
+        .arch-component.db { border-color: #f59e0b; background: #fffbeb; }
+        .entity-card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+        .entity-field { font-size: .75rem; padding: 3px 0; border-bottom: 1px solid #f8fafc; font-family: monospace; }
+        @media(max-width:991px){ .sidebar{display:none} .main-content{margin-left:0} }
+    </style>
+</head>
+<body>
+
+<nav class="sidebar">
+    <div class="brand"><i class="bi bi-cpu"></i> SDLC AI Agents</div>
+    <div class="nav-section">Main</div>
+    <a class="nav-link" href="../index.html"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+    <a class="nav-link" href="pipeline.html"><i class="bi bi-diagram-3"></i> Pipelines</a>
+    <a class="nav-link" href="agents.html"><i class="bi bi-robot"></i> Agents</a>
+    <a class="nav-link" href="artifacts.html"><i class="bi bi-archive"></i> Artifacts</a>
+    <div class="nav-section">SDLC Workflow</div>
+    <a class="nav-link" href="requirements.html"><i class="bi bi-file-earmark-text"></i> Requirements</a>
+    <a class="nav-link active" href="design.html"><i class="bi bi-palette"></i> Design</a>
+    <a class="nav-link" href="tasks.html"><i class="bi bi-kanban"></i> Tasks</a>
+    <a class="nav-link" href="testing.html"><i class="bi bi-bug"></i> Testing</a>
+    <a class="nav-link" href="deployment.html"><i class="bi bi-rocket-takeoff"></i> Deployment</a>
+    <div class="nav-section">Intelligence</div>
+    <a class="nav-link" href="knowledge.html"><i class="bi bi-book"></i> Knowledge Store</a>
+    <a class="nav-link" href="project-health.html"><i class="bi bi-heart-pulse"></i> Project Health</a>
+    <a class="nav-link" href="sentiment.html"><i class="bi bi-emoji-smile"></i> Sentiment</a>
+    <div class="nav-section">Administration</div>
+    <a class="nav-link" href="admin.html"><i class="bi bi-gear"></i> Admin Portal</a>
+    <a class="nav-link" href="users.html"><i class="bi bi-people"></i> Users & Roles</a>
+    <a class="nav-link" href="feedback.html"><i class="bi bi-star"></i> Feedback</a>
+</nav>
+
+<div class="main-content">
+    <div class="top-bar">
+        <h5 class="mb-0 me-auto">System Design — User Authentication</h5>
+        <span class="badge bg-success me-2">v2 Approved</span>
+        <span class="badge bg-secondary me-2">From REQ v3</span>
+        <button class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-repeat"></i> Regenerate</button>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mb-3">
+        <li class="nav-item"><a class="nav-link active" href="#">Architecture</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Data Model</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">API Spec</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Traceability</a></li>
+    </ul>
+
+    <div class="row g-3">
+        <!-- Architecture Diagram -->
+        <div class="col-lg-8">
+            <div class="card-panel">
+                <h6 class="mb-3"><i class="bi bi-diagram-3"></i> Architecture Components</h6>
+                
+                <!-- Client Layer -->
+                <div class="text-center small text-muted mb-2">Client Layer</div>
+                <div class="row g-2 mb-3">
+                    <div class="col-4"><div class="arch-component"><i class="bi bi-phone"></i><div class="small fw-medium mt-1">Mobile App</div></div></div>
+                    <div class="col-4"><div class="arch-component"><i class="bi bi-browser-chrome"></i><div class="small fw-medium mt-1">Web App</div></div></div>
+                    <div class="col-4"><div class="arch-component"><i class="bi bi-terminal"></i><div class="small fw-medium mt-1">API Client</div></div></div>
+                </div>
+
+                <div class="text-center mb-2"><i class="bi bi-arrow-down text-muted"></i></div>
+
+                <!-- API Layer -->
+                <div class="text-center small text-muted mb-2">API Gateway Layer</div>
+                <div class="row g-2 mb-3">
+                    <div class="col-6"><div class="arch-component api"><i class="bi bi-shield-lock"></i><div class="small fw-medium mt-1">Auth Controller</div><div style="font-size:.65rem" class="text-muted">/auth/login, /auth/2fa, /auth/logout</div></div></div>
+                    <div class="col-6"><div class="arch-component api"><i class="bi bi-speedometer"></i><div class="small fw-medium mt-1">Rate Limiter</div><div style="font-size:.65rem" class="text-muted">Per-IP & Per-User throttling</div></div></div>
+                </div>
+
+                <div class="text-center mb-2"><i class="bi bi-arrow-down text-muted"></i></div>
+
+                <!-- Service Layer -->
+                <div class="text-center small text-muted mb-2">Service Layer</div>
+                <div class="row g-2 mb-3">
+                    <div class="col-4"><div class="arch-component service"><i class="bi bi-person-check"></i><div class="small fw-medium mt-1">Auth Service</div><div style="font-size:.65rem" class="text-muted">Login, validate, token</div></div></div>
+                    <div class="col-4"><div class="arch-component service"><i class="bi bi-key"></i><div class="small fw-medium mt-1">2FA Service</div><div style="font-size:.65rem" class="text-muted">OTP gen, verify, send</div></div></div>
+                    <div class="col-4"><div class="arch-component service"><i class="bi bi-lock"></i><div class="small fw-medium mt-1">Session Service</div><div style="font-size:.65rem" class="text-muted">Create, validate, expire</div></div></div>
+                </div>
+
+                <div class="text-center mb-2"><i class="bi bi-arrow-down text-muted"></i></div>
+
+                <!-- Data Layer -->
+                <div class="text-center small text-muted mb-2">Data Layer</div>
+                <div class="row g-2">
+                    <div class="col-4"><div class="arch-component db"><i class="bi bi-database"></i><div class="small fw-medium mt-1">PostgreSQL</div><div style="font-size:.65rem" class="text-muted">Users, OTP, Audit</div></div></div>
+                    <div class="col-4"><div class="arch-component db"><i class="bi bi-lightning"></i><div class="small fw-medium mt-1">Redis</div><div style="font-size:.65rem" class="text-muted">Sessions, Rate limits</div></div></div>
+                    <div class="col-4"><div class="arch-component db"><i class="bi bi-envelope"></i><div class="small fw-medium mt-1">SMS/Email Gateway</div><div style="font-size:.65rem" class="text-muted">OTP delivery</div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Model -->
+        <div class="col-lg-4">
+            <div class="card-panel mb-3">
+                <h6 class="mb-3"><i class="bi bi-table"></i> Data Model</h6>
+                
+                <div class="entity-card">
+                    <div class="small fw-bold mb-2" style="color:#2563eb">User</div>
+                    <div class="entity-field">id: UUID (PK)</div>
+                    <div class="entity-field">email: VARCHAR(255) UNIQUE</div>
+                    <div class="entity-field">password_hash: VARCHAR(60)</div>
+                    <div class="entity-field">two_fa_enabled: BOOLEAN</div>
+                    <div class="entity-field">two_fa_method: ENUM(sms, email)</div>
+                    <div class="entity-field">status: ENUM(active, locked, inactive)</div>
+                    <div class="entity-field">failed_attempts: INT DEFAULT 0</div>
+                    <div class="entity-field">locked_until: TIMESTAMP NULL</div>
+                    <div class="entity-field">created_at: TIMESTAMP</div>
+                </div>
+
+                <div class="entity-card">
+                    <div class="small fw-bold mb-2" style="color:#059669">OTP_Code</div>
+                    <div class="entity-field">id: UUID (PK)</div>
+                    <div class="entity-field">user_id: UUID (FK → User)</div>
+                    <div class="entity-field">code: VARCHAR(6)</div>
+                    <div class="entity-field">channel: ENUM(sms, email)</div>
+                    <div class="entity-field">expires_at: TIMESTAMP</div>
+                    <div class="entity-field">used: BOOLEAN DEFAULT false</div>
+                </div>
+
+                <div class="entity-card">
+                    <div class="small fw-bold mb-2" style="color:#d97706">Audit_Log</div>
+                    <div class="entity-field">id: UUID (PK)</div>
+                    <div class="entity-field">user_id: UUID (FK → User)</div>
+                    <div class="entity-field">action: VARCHAR(50)</div>
+                    <div class="entity-field">ip_address: INET</div>
+                    <div class="entity-field">user_agent: TEXT</div>
+                    <div class="entity-field">timestamp: TIMESTAMP</div>
+                </div>
+            </div>
+
+            <div class="card-panel">
+                <h6 class="mb-3">Design Review</h6>
+                <div class="d-flex gap-2 mb-2">
+                    <button class="btn btn-success btn-sm flex-fill"><i class="bi bi-check-lg"></i> Approve</button>
+                    <button class="btn btn-outline-danger btn-sm flex-fill"><i class="bi bi-x-lg"></i> Reject</button>
+                </div>
+                <textarea class="form-control form-control-sm" rows="2" placeholder="Review comment..."></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

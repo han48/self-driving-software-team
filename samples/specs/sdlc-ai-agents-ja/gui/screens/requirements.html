@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI Agents - 要件管理</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width); background: #1e293b; color: #fff; z-index: 1040; overflow-y: auto; }
+        .sidebar .brand { padding: 16px 20px; font-size: 1.1rem; font-weight: 700; border-bottom: 1px solid #334155; }
+        .sidebar .nav-link { color: #cbd5e1; padding: 10px 20px; font-size: .875rem; display: flex; align-items: center; gap: 10px; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: #334155; }
+        .sidebar .nav-link i { font-size: 1.1rem; width: 22px; text-align: center; }
+        .sidebar .nav-section { padding: 12px 20px 4px; font-size: .7rem; text-transform: uppercase; color: #64748b; letter-spacing: .5px; }
+        .main-content { margin-left: var(--sidebar-width); padding: 20px 28px; min-height: 100vh; }
+        .top-bar { height: 56px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; padding: 0 24px; margin: -20px -28px 20px; }
+        .card-panel { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+        .req-item { padding: 14px 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; }
+        .req-item:hover { border-color: #3b82f6; background: #f8fafc; }
+        .req-type { font-size: .7rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .req-type.functional { background: #dbeafe; color: #1d4ed8; }
+        .req-type.non-functional { background: #fef3c7; color: #92400e; }
+        .req-type.constraint { background: #e2e8f0; color: #475569; }
+        .ac-item { font-size: .8rem; padding: 6px 0; border-bottom: 1px solid #f8fafc; display: flex; gap: 8px; }
+        @media(max-width:991px){ .sidebar{display:none} .main-content{margin-left:0} }
+    </style>
+</head>
+<body>
+
+<nav class="sidebar">
+    <div class="brand"><i class="bi bi-cpu"></i> SDLC AI Agents</div>
+    <div class="nav-section">メイン</div>
+    <a class="nav-link" href="../index.html"><i class="bi bi-grid-1x2"></i> ダッシュボード</a>
+    <a class="nav-link" href="pipeline.html"><i class="bi bi-diagram-3"></i> パイプライン</a>
+    <a class="nav-link" href="agents.html"><i class="bi bi-robot"></i> エージェント</a>
+    <a class="nav-link" href="artifacts.html"><i class="bi bi-archive"></i> アーティファクト</a>
+    <div class="nav-section">SDLCワークフロー</div>
+    <a class="nav-link active" href="requirements.html"><i class="bi bi-file-earmark-text"></i> 要件定義</a>
+    <a class="nav-link" href="design.html"><i class="bi bi-palette"></i> 設計</a>
+    <a class="nav-link" href="tasks.html"><i class="bi bi-kanban"></i> タスク</a>
+    <a class="nav-link" href="testing.html"><i class="bi bi-bug"></i> テスト</a>
+    <a class="nav-link" href="deployment.html"><i class="bi bi-rocket-takeoff"></i> デプロイ</a>
+    <div class="nav-section">インテリジェンス</div>
+    <a class="nav-link" href="knowledge.html"><i class="bi bi-book"></i> ナレッジストア</a>
+    <a class="nav-link" href="project-health.html"><i class="bi bi-heart-pulse"></i> プロジェクトヘルス</a>
+    <a class="nav-link" href="sentiment.html"><i class="bi bi-emoji-smile"></i> センチメント</a>
+    <div class="nav-section">管理</div>
+    <a class="nav-link" href="admin.html"><i class="bi bi-gear"></i> 管理ポータル</a>
+    <a class="nav-link" href="users.html"><i class="bi bi-people"></i> ユーザーと権限</a>
+    <a class="nav-link" href="feedback.html"><i class="bi bi-star"></i> フィードバック</a>
+</nav>
+
+<div class="main-content">
+    <div class="top-bar">
+        <h5 class="mb-0 me-auto">要件管理</h5>
+        <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> 新規要件</button>
+    </div>
+
+    <div class="row g-3">
+        <!-- Input Panel -->
+        <div class="col-lg-5">
+            <div class="card-panel">
+                <h6 class="mb-3"><i class="bi bi-pencil-square"></i> 生の入力</h6>
+                <textarea class="form-control mb-3" rows="6" placeholder="要件の概要を入力...">メール/パスワードによるログイン機能を持つユーザー認証システムを構築する。SMSとメールによる2FAをサポートし、セッションタイムアウトは30分、ログイン失敗5回でアカウントを15分間ロックする。</textarea>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary btn-sm"><i class="bi bi-magic"></i> AIで分析</button>
+                    <button class="btn btn-outline-secondary btn-sm">テンプレートを読み込む</button>
+                </div>
+                <hr>
+                <h6 class="mb-2 small">確認質問（AI生成）</h6>
+                <div class="alert alert-info small py-2 mb-2">
+                    <i class="bi bi-question-circle"></i> システムにSSO（シングルサインオン）のサポートは必要ですか？
+                </div>
+                <div class="alert alert-info small py-2 mb-2">
+                    <i class="bi bi-question-circle"></i> パスワードポリシーの最小文字数は何文字ですか？
+                </div>
+                <div class="alert alert-info small py-2">
+                    <i class="bi bi-question-circle"></i> セッションタイムアウトはモバイルとWebで異なりますか？
+                </div>
+            </div>
+        </div>
+
+        <!-- Structured Output -->
+        <div class="col-lg-7">
+            <div class="card-panel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0"><i class="bi bi-file-earmark-check"></i> 構造化要件</h6>
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-secondary">v3</span>
+                        <span class="badge bg-warning text-dark">レビュー待ち</span>
+                    </div>
+                </div>
+
+                <div class="req-item">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <strong class="small">REQ-001: ユーザーログイン認証</strong>
+                            <span class="req-type functional ms-2">機能要件</span>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </div>
+                    <p class="small text-muted mb-2">システムは登録済みのメールとパスワードによるユーザーログインを許可すること。</p>
+                    <div class="small fw-medium mb-1">Acceptance Criteria:</div>
+                    <div class="ac-item"><i class="bi bi-check-circle text-success"></i> WHEN ユーザーが正しいメール/パスワードを入力 THEN システムはセッションを作成しホームページにリダイレクト</div>
+                    <div class="ac-item"><i class="bi bi-check-circle text-success"></i> WHEN ユーザーが間違ったパスワードを入力 THEN エラーメッセージを表示し試行カウンターを増加</div>
+                </div>
+
+                <div class="req-item">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <strong class="small">REQ-002: 二要素認証</strong>
+                            <span class="req-type functional ms-2">機能要件</span>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </div>
+                    <p class="small text-muted mb-2">システムはSMSとメールによる二要素認証（2FA）をサポートすること。</p>
+                    <div class="small fw-medium mb-1">Acceptance Criteria:</div>
+                    <div class="ac-item"><i class="bi bi-check-circle text-success"></i> WHEN 2FAが有効の場合、ログイン成功後 THEN 選択したチャネルで6桁のOTPを送信</div>
+                    <div class="ac-item"><i class="bi bi-check-circle text-success"></i> OTPは5分後に期限切れとなること</div>
+                </div>
+
+                <div class="req-item">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <strong class="small">REQ-003: セッションタイムアウト</strong>
+                            <span class="req-type non-functional ms-2">非機能要件</span>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </div>
+                    <p class="small text-muted mb-2">セッションは30分間の非アクティブ状態の後、自動的に期限切れとなること。</p>
+                    <div class="ac-item"><i class="bi bi-check-circle text-success"></i> WHEN セッションが30分以上アイドル状態 THEN セッションを無効化しログインにリダイレクト</div>
+                </div>
+
+                <div class="req-item">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <strong class="small">REQ-004: アカウントロックアウトポリシー</strong>
+                            <span class="req-type constraint ms-2">制約</span>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </div>
+                    <p class="small text-muted mb-2">連続5回のログイン失敗後、アカウントを15分間ロックする。</p>
+                    <div class="ac-item"><i class="bi bi-check-circle text-success"></i> IF 5分以内にfailed_attempts >= 5 THEN アカウントを15分間ロック + 管理者にアラート</div>
+                </div>
+
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-success btn-sm"><i class="bi bi-check-lg"></i> 承認</button>
+                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-x-lg"></i> 却下</button>
+                    <button class="btn btn-outline-secondary btn-sm ms-auto">MD出力</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

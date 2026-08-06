@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI Agents - Testing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width); background: #1e293b; color: #fff; z-index: 1040; overflow-y: auto; }
+        .sidebar .brand { padding: 16px 20px; font-size: 1.1rem; font-weight: 700; border-bottom: 1px solid #334155; }
+        .sidebar .nav-link { color: #cbd5e1; padding: 10px 20px; font-size: .875rem; display: flex; align-items: center; gap: 10px; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: #334155; }
+        .sidebar .nav-link i { font-size: 1.1rem; width: 22px; text-align: center; }
+        .sidebar .nav-section { padding: 12px 20px 4px; font-size: .7rem; text-transform: uppercase; color: #64748b; letter-spacing: .5px; }
+        .main-content { margin-left: var(--sidebar-width); padding: 20px 28px; min-height: 100vh; }
+        .top-bar { height: 56px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; padding: 0 24px; margin: -20px -28px 20px; }
+        .card-panel { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+        .test-row { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; margin-bottom: 4px; font-size: .8rem; }
+        .test-row:hover { background: #f8fafc; }
+        .test-row.pass { border-left: 3px solid #22c55e; }
+        .test-row.fail { border-left: 3px solid #ef4444; background: #fef2f2; }
+        .coverage-ring { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; }
+        @media(max-width:991px){ .sidebar{display:none} .main-content{margin-left:0} }
+    </style>
+</head>
+<body>
+
+<nav class="sidebar">
+    <div class="brand"><i class="bi bi-cpu"></i> SDLC AI Agents</div>
+    <div class="nav-section">Main</div>
+    <a class="nav-link" href="../index.html"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+    <a class="nav-link" href="pipeline.html"><i class="bi bi-diagram-3"></i> Pipelines</a>
+    <a class="nav-link" href="agents.html"><i class="bi bi-robot"></i> Agents</a>
+    <a class="nav-link" href="artifacts.html"><i class="bi bi-archive"></i> Artifacts</a>
+    <div class="nav-section">SDLC Workflow</div>
+    <a class="nav-link" href="requirements.html"><i class="bi bi-file-earmark-text"></i> Requirements</a>
+    <a class="nav-link" href="design.html"><i class="bi bi-palette"></i> Design</a>
+    <a class="nav-link" href="tasks.html"><i class="bi bi-kanban"></i> Tasks</a>
+    <a class="nav-link active" href="testing.html"><i class="bi bi-bug"></i> Testing</a>
+    <a class="nav-link" href="deployment.html"><i class="bi bi-rocket-takeoff"></i> Deployment</a>
+    <div class="nav-section">Intelligence</div>
+    <a class="nav-link" href="knowledge.html"><i class="bi bi-book"></i> Knowledge Store</a>
+    <a class="nav-link" href="project-health.html"><i class="bi bi-heart-pulse"></i> Project Health</a>
+    <a class="nav-link" href="sentiment.html"><i class="bi bi-emoji-smile"></i> Sentiment</a>
+    <div class="nav-section">Administration</div>
+    <a class="nav-link" href="admin.html"><i class="bi bi-gear"></i> Admin Portal</a>
+    <a class="nav-link" href="users.html"><i class="bi bi-people"></i> Users & Roles</a>
+    <a class="nav-link" href="feedback.html"><i class="bi bi-star"></i> Feedback</a>
+</nav>
+
+<div class="main-content">
+    <div class="top-bar">
+        <h5 class="mb-0 me-auto">Test Report — User Authentication</h5>
+        <span class="badge bg-warning text-dark me-2">93% Pass Rate</span>
+        <button class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-repeat"></i> Re-run Tests</button>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-6">
+            <div class="card-panel text-center">
+                <div class="coverage-ring mx-auto mb-2" style="background:conic-gradient(#22c55e 0% 93%, #e2e8f0 93% 100%)">
+                    <span style="background:#fff;width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center">93%</span>
+                </div>
+                <div class="small text-muted">Pass Rate</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card-panel text-center">
+                <div class="coverage-ring mx-auto mb-2" style="background:conic-gradient(#3b82f6 0% 86%, #e2e8f0 86% 100%)">
+                    <span style="background:#fff;width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center">86%</span>
+                </div>
+                <div class="small text-muted">Code Coverage</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card-panel text-center">
+                <div class="fs-2 fw-bold text-success">42</div>
+                <div class="small text-muted">Tests Passed</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card-panel text-center">
+                <div class="fs-2 fw-bold text-danger">3</div>
+                <div class="small text-muted">Tests Failed</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <!-- Test Results -->
+        <div class="col-lg-8">
+            <div class="card-panel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0">Test Cases</h6>
+                    <div class="d-flex gap-2">
+                        <select class="form-select form-select-sm" style="width:auto">
+                            <option>All Types</option>
+                            <option>Unit</option>
+                            <option>Integration</option>
+                            <option>Acceptance</option>
+                        </select>
+                        <select class="form-select form-select-sm" style="width:auto">
+                            <option>All Status</option>
+                            <option>Failed Only</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Failed Tests -->
+                <div class="test-row fail">
+                    <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                    <div class="flex-grow-1">
+                        <div class="fw-medium">test_2fa_sms_timeout_handling</div>
+                        <div class="text-muted" style="font-size:.7rem">Integration • Expected: timeout error after 5s, Got: hung indefinitely</div>
+                    </div>
+                    <span class="badge bg-danger-subtle text-danger">Critical</span>
+                </div>
+                <div class="test-row fail">
+                    <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                    <div class="flex-grow-1">
+                        <div class="fw-medium">test_concurrent_login_race_condition</div>
+                        <div class="text-muted" style="font-size:.7rem">Integration • Race condition when 2 sessions created simultaneously</div>
+                    </div>
+                    <span class="badge bg-warning-subtle text-warning">Major</span>
+                </div>
+                <div class="test-row fail">
+                    <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                    <div class="flex-grow-1">
+                        <div class="fw-medium">test_lockout_message_i18n</div>
+                        <div class="text-muted" style="font-size:.7rem">Unit • Missing Vietnamese translation for lockout message</div>
+                    </div>
+                    <span class="badge bg-secondary-subtle text-secondary">Minor</span>
+                </div>
+
+                <hr>
+
+                <!-- Passed Tests (sample) -->
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_login_valid_credentials</div><div class="text-muted" style="font-size:.7rem">Unit • 12ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_login_invalid_password</div><div class="text-muted" style="font-size:.7rem">Unit • 8ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_account_lockout_after_5_attempts</div><div class="text-muted" style="font-size:.7rem">Integration • 145ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_session_expires_after_30min</div><div class="text-muted" style="font-size:.7rem">Acceptance • 203ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_password_hash_bcrypt_roundtrip</div><div class="text-muted" style="font-size:.7rem">Unit • 89ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_2fa_otp_generation_valid</div><div class="text-muted" style="font-size:.7rem">Unit • 5ms</div></div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-secondary">Show all 42 passed tests...</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Info -->
+        <div class="col-lg-4">
+            <div class="card-panel mb-3">
+                <h6 class="mb-3">Test Summary</h6>
+                <table class="table table-sm small mb-0">
+                    <tr><td class="text-muted">Total Tests</td><td class="text-end fw-medium">45</td></tr>
+                    <tr><td class="text-muted">Unit Tests</td><td class="text-end">28 <span class="text-success">(27 pass)</span></td></tr>
+                    <tr><td class="text-muted">Integration Tests</td><td class="text-end">12 <span class="text-danger">(10 pass)</span></td></tr>
+                    <tr><td class="text-muted">Acceptance Tests</td><td class="text-end">5 <span class="text-success">(5 pass)</span></td></tr>
+                    <tr><td class="text-muted">Execution Time</td><td class="text-end">4.2s</td></tr>
+                    <tr><td class="text-muted">Generated By</td><td class="text-end">Testing_Agent</td></tr>
+                </table>
+            </div>
+
+            <div class="card-panel mb-3">
+                <h6 class="mb-3">Quality Gate</h6>
+                <div class="alert alert-warning small py-2 mb-2">
+                    <i class="bi bi-exclamation-triangle"></i> Pass rate 93% ≥ 90% threshold — <strong>PASSED</strong>
+                </div>
+                <div class="alert alert-success small py-2 mb-2">
+                    <i class="bi bi-check-circle"></i> Coverage 86% ≥ 80% threshold — <strong>PASSED</strong>
+                </div>
+                <div class="alert alert-danger small py-2">
+                    <i class="bi bi-x-circle"></i> 1 Critical failure detected — <strong>BLOCKED</strong>
+                </div>
+                <div class="small text-muted mt-2">
+                    <i class="bi bi-info-circle"></i> Deployment blocked due to critical test failure. Fix required before proceeding.
+                </div>
+            </div>
+
+            <div class="card-panel">
+                <h6 class="mb-2">Actions</h6>
+                <button class="btn btn-sm btn-outline-danger w-100 mb-2"><i class="bi bi-send"></i> Send to Coding_Agent for fix</button>
+                <button class="btn btn-sm btn-outline-secondary w-100">Export Report (MD)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

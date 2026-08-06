@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI Agents - Tasks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width); background: #1e293b; color: #fff; z-index: 1040; overflow-y: auto; }
+        .sidebar .brand { padding: 16px 20px; font-size: 1.1rem; font-weight: 700; border-bottom: 1px solid #334155; }
+        .sidebar .nav-link { color: #cbd5e1; padding: 10px 20px; font-size: .875rem; display: flex; align-items: center; gap: 10px; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: #334155; }
+        .sidebar .nav-link i { font-size: 1.1rem; width: 22px; text-align: center; }
+        .sidebar .nav-section { padding: 12px 20px 4px; font-size: .7rem; text-transform: uppercase; color: #64748b; letter-spacing: .5px; }
+        .main-content { margin-left: var(--sidebar-width); padding: 20px 28px; min-height: 100vh; }
+        .top-bar { height: 56px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; padding: 0 24px; margin: -20px -28px 20px; }
+        .kanban-col { min-width: 280px; flex: 1; }
+        .kanban-header { padding: 10px 14px; border-radius: 8px 8px 0 0; font-weight: 600; font-size: .85rem; }
+        .kanban-body { background: #f8fafc; border-radius: 0 0 8px 8px; padding: 10px; min-height: 400px; }
+        .task-card { background: #fff; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.05); border-left: 3px solid transparent; }
+        .task-card.p0 { border-left-color: #ef4444; }
+        .task-card.p1 { border-left-color: #f59e0b; }
+        .task-card.p2 { border-left-color: #3b82f6; }
+        .task-card.p3 { border-left-color: #94a3b8; }
+        .effort-badge { font-size: .65rem; padding: 2px 6px; border-radius: 3px; background: #f1f5f9; color: #475569; }
+        .dep-link { font-size: .7rem; color: #6366f1; }
+        @media(max-width:991px){ .sidebar{display:none} .main-content{margin-left:0} }
+    </style>
+</head>
+<body>
+
+<nav class="sidebar">
+    <div class="brand"><i class="bi bi-cpu"></i> SDLC AI Agents</div>
+    <div class="nav-section">Main</div>
+    <a class="nav-link" href="../index.html"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+    <a class="nav-link" href="pipeline.html"><i class="bi bi-diagram-3"></i> Pipelines</a>
+    <a class="nav-link" href="agents.html"><i class="bi bi-robot"></i> Agents</a>
+    <a class="nav-link" href="artifacts.html"><i class="bi bi-archive"></i> Artifacts</a>
+    <div class="nav-section">SDLC Workflow</div>
+    <a class="nav-link" href="requirements.html"><i class="bi bi-file-earmark-text"></i> Requirements</a>
+    <a class="nav-link" href="design.html"><i class="bi bi-palette"></i> Design</a>
+    <a class="nav-link active" href="tasks.html"><i class="bi bi-kanban"></i> Tasks</a>
+    <a class="nav-link" href="testing.html"><i class="bi bi-bug"></i> Testing</a>
+    <a class="nav-link" href="deployment.html"><i class="bi bi-rocket-takeoff"></i> Deployment</a>
+    <div class="nav-section">Intelligence</div>
+    <a class="nav-link" href="knowledge.html"><i class="bi bi-book"></i> Knowledge Store</a>
+    <a class="nav-link" href="project-health.html"><i class="bi bi-heart-pulse"></i> Project Health</a>
+    <a class="nav-link" href="sentiment.html"><i class="bi bi-emoji-smile"></i> Sentiment</a>
+    <div class="nav-section">Administration</div>
+    <a class="nav-link" href="admin.html"><i class="bi bi-gear"></i> Admin Portal</a>
+    <a class="nav-link" href="users.html"><i class="bi bi-people"></i> Users & Roles</a>
+    <a class="nav-link" href="feedback.html"><i class="bi bi-star"></i> Feedback</a>
+</nav>
+
+<div class="main-content">
+    <div class="top-bar">
+        <h5 class="mb-0 me-auto">Task Board — User Authentication</h5>
+        <span class="badge bg-secondary me-2">Design v2</span>
+        <span class="small text-muted me-3">12 tasks • Critical Path: 5 days</span>
+        <button class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-repeat"></i> Re-generate</button>
+    </div>
+
+    <!-- Kanban Board -->
+    <div class="d-flex gap-3 overflow-auto pb-3">
+        <!-- Backlog -->
+        <div class="kanban-col">
+            <div class="kanban-header bg-secondary-subtle text-secondary">Backlog (3)</div>
+            <div class="kanban-body">
+                <div class="task-card p2">
+                    <div class="small fw-medium mb-1">TASK-007: Email notification templates</div>
+                    <div class="small text-muted mb-2">Create responsive email templates for OTP, password reset, account lock notification</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">M</span>
+                        <span class="badge bg-primary-subtle text-primary" style="font-size:.6rem">P2</span>
+                        <span class="dep-link ms-auto">→ TASK-002</span>
+                    </div>
+                </div>
+                <div class="task-card p3">
+                    <div class="small fw-medium mb-1">TASK-010: Audit logging</div>
+                    <div class="small text-muted mb-2">Log all authentication events with timestamp, IP, user-agent</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">S</span>
+                        <span class="badge bg-secondary-subtle text-secondary" style="font-size:.6rem">P3</span>
+                    </div>
+                </div>
+                <div class="task-card p2">
+                    <div class="small fw-medium mb-1">TASK-012: Rate limiting middleware</div>
+                    <div class="small text-muted mb-2">Implement per-IP and per-user rate limiting for auth endpoints</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">S</span>
+                        <span class="badge bg-primary-subtle text-primary" style="font-size:.6rem">P2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- In Progress -->
+        <div class="kanban-col">
+            <div class="kanban-header bg-warning-subtle text-warning">In Progress (3)</div>
+            <div class="kanban-body">
+                <div class="task-card p0">
+                    <div class="small fw-medium mb-1">TASK-001: User model & DB schema</div>
+                    <div class="small text-muted mb-2">Create User entity with fields: id, email, password_hash, 2fa_enabled, status, failed_attempts, locked_until</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">M</span>
+                        <span class="badge bg-danger-subtle text-danger" style="font-size:.6rem">P0</span>
+                        <span class="small text-muted ms-auto"><i class="bi bi-robot"></i> Coding</span>
+                    </div>
+                </div>
+                <div class="task-card p0">
+                    <div class="small fw-medium mb-1">TASK-002: Login endpoint (POST /auth/login)</div>
+                    <div class="small text-muted mb-2">Implement login with email/password validation, JWT token generation, attempt tracking</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">L</span>
+                        <span class="badge bg-danger-subtle text-danger" style="font-size:.6rem">P0</span>
+                        <span class="dep-link ms-auto">→ TASK-001</span>
+                    </div>
+                </div>
+                <div class="task-card p1">
+                    <div class="small fw-medium mb-1">TASK-004: 2FA OTP generation service</div>
+                    <div class="small text-muted mb-2">Implement TOTP generation, SMS/Email delivery, expiry logic (5 min)</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">L</span>
+                        <span class="badge bg-warning-subtle text-warning" style="font-size:.6rem">P1</span>
+                        <span class="dep-link ms-auto">→ TASK-001</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review -->
+        <div class="kanban-col">
+            <div class="kanban-header bg-info-subtle text-info">Review (2)</div>
+            <div class="kanban-body">
+                <div class="task-card p0">
+                    <div class="small fw-medium mb-1">TASK-003: Account lockout logic</div>
+                    <div class="small text-muted mb-2">Lock account after 5 failed attempts, auto-unlock after 15 min, notify admin</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">M</span>
+                        <span class="badge bg-danger-subtle text-danger" style="font-size:.6rem">P0</span>
+                        <span class="small text-muted ms-auto"><i class="bi bi-person-check"></i> Reviewing</span>
+                    </div>
+                </div>
+                <div class="task-card p1">
+                    <div class="small fw-medium mb-1">TASK-005: Session management</div>
+                    <div class="small text-muted mb-2">Redis-backed session store, 30min idle timeout, sliding window</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">M</span>
+                        <span class="badge bg-warning-subtle text-warning" style="font-size:.6rem">P1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Done -->
+        <div class="kanban-col">
+            <div class="kanban-header bg-success-subtle text-success">Done (4)</div>
+            <div class="kanban-body">
+                <div class="task-card p0" style="opacity:.8">
+                    <div class="small fw-medium mb-1">TASK-006: Password hashing (bcrypt)</div>
+                    <div class="small text-muted mb-2">Implement bcrypt hashing with cost factor 12</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">S</span>
+                        <span class="badge bg-danger-subtle text-danger" style="font-size:.6rem">P0</span>
+                        <i class="bi bi-check-circle-fill text-success ms-auto"></i>
+                    </div>
+                </div>
+                <div class="task-card p1" style="opacity:.8">
+                    <div class="small fw-medium mb-1">TASK-008: Input validation middleware</div>
+                    <div class="small text-muted mb-2">Validate email format, password strength rules</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">S</span>
+                        <span class="badge bg-warning-subtle text-warning" style="font-size:.6rem">P1</span>
+                        <i class="bi bi-check-circle-fill text-success ms-auto"></i>
+                    </div>
+                </div>
+                <div class="task-card p1" style="opacity:.8">
+                    <div class="small fw-medium mb-1">TASK-009: Error response standardization</div>
+                    <div class="small text-muted mb-2">Unified error response format for all auth endpoints</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">S</span>
+                        <span class="badge bg-warning-subtle text-warning" style="font-size:.6rem">P1</span>
+                        <i class="bi bi-check-circle-fill text-success ms-auto"></i>
+                    </div>
+                </div>
+                <div class="task-card p2" style="opacity:.8">
+                    <div class="small fw-medium mb-1">TASK-011: OpenAPI spec for auth</div>
+                    <div class="small text-muted mb-2">Swagger documentation for all auth endpoints</div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="effort-badge">S</span>
+                        <span class="badge bg-primary-subtle text-primary" style="font-size:.6rem">P2</span>
+                        <i class="bi bi-check-circle-fill text-success ms-auto"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

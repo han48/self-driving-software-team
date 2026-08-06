@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI Agents - Testing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width); background: #1e293b; color: #fff; z-index: 1040; overflow-y: auto; }
+        .sidebar .brand { padding: 16px 20px; font-size: 1.1rem; font-weight: 700; border-bottom: 1px solid #334155; }
+        .sidebar .nav-link { color: #cbd5e1; padding: 10px 20px; font-size: .875rem; display: flex; align-items: center; gap: 10px; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: #334155; }
+        .sidebar .nav-link i { font-size: 1.1rem; width: 22px; text-align: center; }
+        .sidebar .nav-section { padding: 12px 20px 4px; font-size: .7rem; text-transform: uppercase; color: #64748b; letter-spacing: .5px; }
+        .main-content { margin-left: var(--sidebar-width); padding: 20px 28px; min-height: 100vh; }
+        .top-bar { height: 56px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; padding: 0 24px; margin: -20px -28px 20px; }
+        .card-panel { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+        .test-row { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; margin-bottom: 4px; font-size: .8rem; }
+        .test-row:hover { background: #f8fafc; }
+        .test-row.pass { border-left: 3px solid #22c55e; }
+        .test-row.fail { border-left: 3px solid #ef4444; background: #fef2f2; }
+        .coverage-ring { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; }
+        @media(max-width:991px){ .sidebar{display:none} .main-content{margin-left:0} }
+    </style>
+</head>
+<body>
+
+<nav class="sidebar">
+    <div class="brand"><i class="bi bi-cpu"></i> SDLC AI Agents</div>
+    <div class="nav-section">メイン</div>
+    <a class="nav-link" href="../index.html"><i class="bi bi-grid-1x2"></i> ダッシュボード</a>
+    <a class="nav-link" href="pipeline.html"><i class="bi bi-diagram-3"></i> パイプライン</a>
+    <a class="nav-link" href="agents.html"><i class="bi bi-robot"></i> エージェント</a>
+    <a class="nav-link" href="artifacts.html"><i class="bi bi-archive"></i> アーティファクト</a>
+    <div class="nav-section">SDLCワークフロー</div>
+    <a class="nav-link" href="requirements.html"><i class="bi bi-file-earmark-text"></i> 要件定義</a>
+    <a class="nav-link" href="design.html"><i class="bi bi-palette"></i> 設計</a>
+    <a class="nav-link" href="tasks.html"><i class="bi bi-kanban"></i> タスク</a>
+    <a class="nav-link active" href="testing.html"><i class="bi bi-bug"></i> テスト</a>
+    <a class="nav-link" href="deployment.html"><i class="bi bi-rocket-takeoff"></i> デプロイ</a>
+    <div class="nav-section">インテリジェンス</div>
+    <a class="nav-link" href="knowledge.html"><i class="bi bi-book"></i> ナレッジストア</a>
+    <a class="nav-link" href="project-health.html"><i class="bi bi-heart-pulse"></i> プロジェクトヘルス</a>
+    <a class="nav-link" href="sentiment.html"><i class="bi bi-emoji-smile"></i> センチメント</a>
+    <div class="nav-section">管理</div>
+    <a class="nav-link" href="admin.html"><i class="bi bi-gear"></i> 管理ポータル</a>
+    <a class="nav-link" href="users.html"><i class="bi bi-people"></i> ユーザーと権限</a>
+    <a class="nav-link" href="feedback.html"><i class="bi bi-star"></i> フィードバック</a>
+</nav>
+
+<div class="main-content">
+    <div class="top-bar">
+        <h5 class="mb-0 me-auto">テストレポート — ユーザー認証</h5>
+        <span class="badge bg-warning text-dark me-2">93% 合格率</span>
+        <button class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-repeat"></i> テスト再実行</button>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-6">
+            <div class="card-panel text-center">
+                <div class="coverage-ring mx-auto mb-2" style="background:conic-gradient(#22c55e 0% 93%, #e2e8f0 93% 100%)">
+                    <span style="background:#fff;width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center">93%</span>
+                </div>
+                <div class="small text-muted">合格率</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card-panel text-center">
+                <div class="coverage-ring mx-auto mb-2" style="background:conic-gradient(#3b82f6 0% 86%, #e2e8f0 86% 100%)">
+                    <span style="background:#fff;width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center">86%</span>
+                </div>
+                <div class="small text-muted">コードカバレッジ</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card-panel text-center">
+                <div class="fs-2 fw-bold text-success">42</div>
+                <div class="small text-muted">合格テスト数</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card-panel text-center">
+                <div class="fs-2 fw-bold text-danger">3</div>
+                <div class="small text-muted">失敗テスト数</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <!-- Test Results -->
+        <div class="col-lg-8">
+            <div class="card-panel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0">テストケース</h6>
+                    <div class="d-flex gap-2">
+                        <select class="form-select form-select-sm" style="width:auto">
+                            <option>すべてのタイプ</option>
+                            <option>ユニット</option>
+                            <option>統合</option>
+                            <option>受け入れ</option>
+                        </select>
+                        <select class="form-select form-select-sm" style="width:auto">
+                            <option>すべてのステータス</option>
+                            <option>失敗のみ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Failed Tests -->
+                <div class="test-row fail">
+                    <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                    <div class="flex-grow-1">
+                        <div class="fw-medium">test_2fa_sms_timeout_handling</div>
+                        <div class="text-muted" style="font-size:.7rem">統合 • 期待: 5秒後にタイムアウトエラー、結果: 無限にハング</div>
+                    </div>
+                    <span class="badge bg-danger-subtle text-danger">クリティカル</span>
+                </div>
+                <div class="test-row fail">
+                    <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                    <div class="flex-grow-1">
+                        <div class="fw-medium">test_concurrent_login_race_condition</div>
+                        <div class="text-muted" style="font-size:.7rem">統合 • 2セッション同時作成時のレースコンディション</div>
+                    </div>
+                    <span class="badge bg-warning-subtle text-warning">メジャー</span>
+                </div>
+                <div class="test-row fail">
+                    <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                    <div class="flex-grow-1">
+                        <div class="fw-medium">test_lockout_message_i18n</div>
+                        <div class="text-muted" style="font-size:.7rem">ユニット • ロックアウトメッセージのベトナム語翻訳が不足</div>
+                    </div>
+                    <span class="badge bg-secondary-subtle text-secondary">マイナー</span>
+                </div>
+
+                <hr>
+
+                <!-- Passed Tests (sample) -->
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_login_valid_credentials</div><div class="text-muted" style="font-size:.7rem">ユニット • 12ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_login_invalid_password</div><div class="text-muted" style="font-size:.7rem">ユニット • 8ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_account_lockout_after_5_attempts</div><div class="text-muted" style="font-size:.7rem">統合 • 145ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_session_expires_after_30min</div><div class="text-muted" style="font-size:.7rem">受け入れ • 203ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_password_hash_bcrypt_roundtrip</div><div class="text-muted" style="font-size:.7rem">ユニット • 89ms</div></div>
+                </div>
+                <div class="test-row pass">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <div class="flex-grow-1"><div class="fw-medium">test_2fa_otp_generation_valid</div><div class="text-muted" style="font-size:.7rem">ユニット • 5ms</div></div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-secondary">全42件の合格テストを表示...</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Info -->
+        <div class="col-lg-4">
+            <div class="card-panel mb-3">
+                <h6 class="mb-3">テストサマリー</h6>
+                <table class="table table-sm small mb-0">
+                    <tr><td class="text-muted">総テスト数</td><td class="text-end fw-medium">45</td></tr>
+                    <tr><td class="text-muted">ユニットテスト</td><td class="text-end">28 <span class="text-success">(27 合格)</span></td></tr>
+                    <tr><td class="text-muted">統合テスト</td><td class="text-end">12 <span class="text-danger">(10 合格)</span></td></tr>
+                    <tr><td class="text-muted">受け入れテスト</td><td class="text-end">5 <span class="text-success">(5 合格)</span></td></tr>
+                    <tr><td class="text-muted">実行時間</td><td class="text-end">4.2s</td></tr>
+                    <tr><td class="text-muted">生成者</td><td class="text-end">Testing_Agent</td></tr>
+                </table>
+            </div>
+
+            <div class="card-panel mb-3">
+                <h6 class="mb-3">品質ゲート</h6>
+                <div class="alert alert-warning small py-2 mb-2">
+                    <i class="bi bi-exclamation-triangle"></i> 合格率 93% ≥ 90% しきい値 — <strong>合格</strong>
+                </div>
+                <div class="alert alert-success small py-2 mb-2">
+                    <i class="bi bi-check-circle"></i> カバレッジ 86% ≥ 80% しきい値 — <strong>合格</strong>
+                </div>
+                <div class="alert alert-danger small py-2">
+                    <i class="bi bi-x-circle"></i> クリティカル失敗 1件検出 — <strong>ブロック</strong>
+                </div>
+                <div class="small text-muted mt-2">
+                    <i class="bi bi-info-circle"></i> クリティカルテスト失敗によりデプロイがブロックされています。続行前に修正が必要です。
+                </div>
+            </div>
+
+            <div class="card-panel">
+                <h6 class="mb-2">アクション</h6>
+                <button class="btn btn-sm btn-outline-danger w-100 mb-2"><i class="bi bi-send"></i> Coding_Agentに修正依頼</button>
+                <button class="btn btn-sm btn-outline-secondary w-100">レポート出力（MD）</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
